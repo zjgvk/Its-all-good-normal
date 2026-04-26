@@ -10,7 +10,7 @@
         color: #e6e6e6;
         font-family: monospace;
         text-align: center;
-        padding-top: 12%;
+        padding-top: 15%;
     }
 
     input {
@@ -19,6 +19,7 @@
         border: 1px solid #444;
         color: white;
         text-align: center;
+        font-family: monospace;
     }
 
     button {
@@ -41,10 +42,9 @@
         margin-top: 10px;
     }
 
-    .micro {
-        color: #111;
-        font-size: 11px;
-        margin-top: 20px;
+    #msg {
+        margin-top: 10px;
+        color: #999;
     }
 </style>
 
@@ -52,57 +52,45 @@
 
 <body>
 
-<!-- MAIN -->
-<div id="page1">
+<p>system check complete</p>
+<p>no anomalies detected</p>
 
-    <p>system check complete</p>
-    <p>no anomalies detected</p>
+<br>
 
-    <br>
+<p>enter access sequence</p>
 
-    <p>enter access sequence</p>
+<!-- 🔑 THIS IS THE TYPE BOX -->
+<input id="code" placeholder="••••••">
 
-    <input id="code" placeholder="••••••">
+<br>
 
-    <br>
+<button onclick="checkCode()">continue</button>
 
-    <button onclick="checkCode()">continue</button>
+<p id="msg"></p>
 
-    <p id="msg"></p>
+<br>
 
-    <!-- HINTS (subtle ARG clues) -->
-    <div class="hint">system note: version index is active in all current entries</div>
-    <div class="hint">access attempts require correct structure alignment</div>
-    <div class="hint">48219 is not a password — it is a reference</div>
-    <div class="hint">entries must reflect system state + identifier</div>
-
-    <!-- ultra hidden meta clue -->
-    <div class="micro">format mismatch = rejection</div>
-
-</div>
+<!-- hints for ARG -->
+<div class="hint">system note: version index is active</div>
+<div class="hint">access requires structure alignment</div>
+<div class="hint">48219 is not a password — it is a reference</div>
+<div class="hint">format: keyword + identifier</div>
 
 <script>
 function checkCode() {
-
     let input = document.getElementById("code").value.trim().toLowerCase();
 
-    if (isValid(input)) {
+    let hasNumber = /\d/.test(input);
+    let hasKeyword =
+        input.includes("version") ||
+        input.includes("system");
+
+    if (hasNumber && hasKeyword) {
         window.location.href = "page2.html";
     } else {
         document.getElementById("msg").innerText =
         "sequence rejected — mismatch detected";
     }
-}
-
-// ARG logic gate (no exposed password)
-function isValid(text) {
-
-    let hasNumber = /\d/.test(text);
-    let hasKeyword =
-        text.includes("version") ||
-        text.includes("system");
-
-    return hasNumber && hasKeyword;
 }
 </script>
 
