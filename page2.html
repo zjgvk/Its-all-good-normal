@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>record</title>
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        background: url('https://i.imgur.com/8K3ZQ2K.jpg');
+        background-size: cover;
+        background-position: center;
+        color: #eaeaea;
+        font-family: monospace;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .box {
+        background: rgba(0,0,0,0.75);
+        padding: 30px;
+        border: 1px solid #333;
+        max-width: 600px;
+    }
+
+    button {
+        margin-top: 20px;
+        background: none;
+        border: 1px solid #666;
+        color: #ccc;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        border-color: white;
+        color: white;
+    }
+
+    .small {
+        font-size: 10px;
+        color: #444;
+        margin-top: 15px;
+    }
+</style>
+</head>
+<body>
+
+<div class="box">
+    <p>record found</p>
+    <p>version alignment: confirmed</p>
+    <p>you are not the first to reach this point</p>
+
+    <button onclick="show()">continue</button>
+
+    <p id="msg"></p>
+
+    <div class="small">
+        76 65 72 73 69 6f 6e 20 72 65 6d 61 69 6e 73
+    </div>
+</div>
+
+<script>
+function show() {
+    document.getElementById("msg").innerHTML =
+    "earlier versions did not persist";
+}
+</script>
+
+</body>
+</html>
