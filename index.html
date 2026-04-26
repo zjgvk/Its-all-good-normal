@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>System Check</title>
+<style>
+    body {
+        background-color: black;
+        color: #e0e0e0;
+        font-family: monospace;
+        text-align: center;
+        padding-top: 15%;
+    }
+    .hidden {
+        display: none;
+    }
+    button {
+        background: none;
+        border: 1px solid #666;
+        color: #ccc;
+        padding: 10px 20px;
+        margin: 10px;
+        cursor: pointer;
+    }
+    button:hover {
+        border-color: white;
+        color: white;
+    }
+    .small {
+        font-size: 10px;
+        color: #222;
+        margin-top: 40px;
+    }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 -->
+<div id="page1">
+    <p>system check complete</p>
+    <p>no anomalies detected</p>
+    <br>
+    <p>continue as expected</p>
+    <button onclick="nextPage(2)">continue</button>
+</div>
+
+<!-- PAGE 2 -->
+<div id="page2" class="hidden">
+    <p>you feel in control</p>
+    <button onclick="answer()">yes</button>
+    <button onclick="answer()">no</button>
+</div>
+
+<!-- PAGE 3 -->
+<div id="page3" class="hidden">
+    <p id="response"></p>
+    <br>
+    <button onclick="nextPage(4)">continue</button>
+</div>
+
+<!-- PAGE 4 -->
+<div id="page4" class="hidden">
+    <p>deviation tolerance: low</p>
+    <p>you remain within range</p>
+    <br>
+    <button onclick="nextPage(5)">continue</button>
+</div>
+
+<!-- FINAL PAGE -->
+<div id="page5" class="hidden">
+    <p>you are not being controlled</p>
+    <br>
+    <p>you are simply behaving as expected</p>
+    <br>
+    <p>there is no difference</p>
+
+    <!-- hidden clue -->
+    <div class="small">
+        6e 6f 74 68 69 6e 67 20 77 72 6f 6e 67
+    </div>
+</div>
+
+<script>
+function nextPage(page) {
+    for (let i = 1; i <= 5; i++) {
+        document.getElementById("page" + i).classList.add("hidden");
+    }
+    document.getElementById("page" + page).classList.remove("hidden");
+}
+
+function answer() {
+    nextPage(3);
+    document.getElementById("response").innerText = "response recorded: yes";
+}
+</script>
+
+</body>
+</html>
