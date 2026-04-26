@@ -2,95 +2,107 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>System Check</title>
+<title>system check</title>
+
 <style>
     body {
         background-color: black;
-        color: #e0e0e0;
+        color: #e6e6e6;
         font-family: monospace;
         text-align: center;
-        padding-top: 15%;
+        padding-top: 12%;
     }
-    .hidden {
-        display: none;
+
+    input {
+        padding: 10px;
+        background: black;
+        border: 1px solid #444;
+        color: white;
+        text-align: center;
     }
+
     button {
+        margin-top: 10px;
         background: none;
         border: 1px solid #666;
         color: #ccc;
         padding: 10px 20px;
-        margin: 10px;
         cursor: pointer;
     }
+
     button:hover {
         border-color: white;
         color: white;
     }
-    .small {
-        font-size: 10px;
-        color: #222;
-        margin-top: 40px;
+
+    .hint {
+        color: #2a2a2a;
+        font-size: 12px;
+        margin-top: 10px;
+    }
+
+    .micro {
+        color: #111;
+        font-size: 11px;
+        margin-top: 20px;
     }
 </style>
+
 </head>
+
 <body>
 
-<!-- PAGE 1 -->
+<!-- MAIN -->
 <div id="page1">
+
     <p>system check complete</p>
     <p>no anomalies detected</p>
-    <br>
-    <p>continue as expected</p>
-    <button onclick="nextPage(2)">continue</button>
-</div>
 
-<!-- PAGE 2 -->
-<div id="page2" class="hidden">
-    <p>you feel in control</p>
-    <button onclick="answer()">yes</button>
-    <button onclick="answer()">no</button>
-</div>
-
-<!-- PAGE 3 -->
-<div id="page3" class="hidden">
-    <p id="response"></p>
     <br>
-    <button onclick="nextPage(4)">continue</button>
-</div>
 
-<!-- PAGE 4 -->
-<div id="page4" class="hidden">
-    <p>deviation tolerance: low</p>
-    <p>you remain within range</p>
-    <br>
-    <button onclick="nextPage(5)">continue</button>
-</div>
+    <p>enter access sequence</p>
 
-<!-- FINAL PAGE -->
-<div id="page5" class="hidden">
-    <p>you are not being controlled</p>
-    <br>
-    <p>you are simply behaving as expected</p>
-    <br>
-    <p>there is no difference</p>
+    <input id="code" placeholder="••••••">
 
-    <!-- hidden clue -->
-    <div class="small">
-        6e 6f 74 68 69 6e 67 20 77 72 6f 6e 67
-    </div>
+    <br>
+
+    <button onclick="checkCode()">continue</button>
+
+    <p id="msg"></p>
+
+    <!-- HINTS (subtle ARG clues) -->
+    <div class="hint">system note: version index is active in all current entries</div>
+    <div class="hint">access attempts require correct structure alignment</div>
+    <div class="hint">48219 is not a password — it is a reference</div>
+    <div class="hint">entries must reflect system state + identifier</div>
+
+    <!-- ultra hidden meta clue -->
+    <div class="micro">format mismatch = rejection</div>
+
 </div>
 
 <script>
-function nextPage(page) {
-    for (let i = 1; i <= 5; i++) {
-        document.getElementById("page" + i).classList.add("hidden");
+function checkCode() {
+
+    let input = document.getElementById("code").value.trim().toLowerCase();
+
+    if (isValid(input)) {
+        window.location.href = "page2.html";
+    } else {
+        document.getElementById("msg").innerText =
+        "sequence rejected — mismatch detected";
     }
-    document.getElementById("page" + page).classList.remove("hidden");
 }
 
-function answer() {
-    nextPage(3);
-    document.getElementById("response").innerText = "response recorded: yes";
+// ARG logic gate (no exposed password)
+function isValid(text) {
+
+    let hasNumber = /\d/.test(text);
+    let hasKeyword =
+        text.includes("version") ||
+        text.includes("system");
+
+    return hasNumber && hasKeyword;
 }
 </script>
 
